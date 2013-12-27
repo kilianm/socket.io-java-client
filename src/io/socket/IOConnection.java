@@ -565,7 +565,7 @@ class IOConnection implements IOCallback {
 	public void transportDisconnected() {
 		this.lastException = null;
 		setState(STATE_INTERRUPTED);
-		reconnect();
+		//reconnect();
 	}
 
 	/**
@@ -578,7 +578,7 @@ class IOConnection implements IOCallback {
 	public void transportError(Exception error) {
 		this.lastException = error;
 		setState(STATE_INTERRUPTED);
-		reconnect();
+		//reconnect();
 	}
 
 	/**
