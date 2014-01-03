@@ -20,6 +20,8 @@ How to use:
 From https://github.com/kushdilip/socket.io-java-client
  * add SSL additions and fixes
 
+From https://github.com/cloudengine/socket.io-java-client
+ * stop reconnecting when the transport is disconnected
 
 # Socket.IO-Client for Java
 
