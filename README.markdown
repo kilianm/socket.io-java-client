@@ -17,6 +17,9 @@ How to use:
     socketio.connect(url, this);
 ```
 
+From https://github.com/kushdilip/socket.io-java-client
+ * add SSL additions and fixes
+
 
 # Socket.IO-Client for Java
 
