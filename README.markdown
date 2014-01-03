@@ -1,5 +1,23 @@
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Gottox&url=https://github.com/Gottox/socket.io-java-client&title=socket.io-java-client&language=&tags=github&category=software)
 
+# Fork Purpose
+
+Bring useful changes from other forks into this fork.
+Address some compatibility issues between the Socket.io javascript client and this.
+
+# Updates
+
+From https://github.com/monterosa/socket.io-java-client
+ * query string for handshake fix
+How to use:
+``` java
+    java.net.URL url = new java.net.URL("my.example.com/namespace");
+    socketio = new SocketIO();
+    socketio.setQueryString("a=b&c=d");
+    socketio.connect(url, this);
+```
+
+
 # Socket.IO-Client for Java
 
 socket.io-java-client is an easy to use implementation of [socket.io](http://socket.io) for Java.
