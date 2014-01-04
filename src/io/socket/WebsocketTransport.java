@@ -37,7 +37,7 @@ class WebsocketTransport extends WebSocketClient implements IOTransport {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
-        } 
+        }
         try {
             context.init(null, null, null);
         } catch (KeyManagementException e) {
