@@ -46,6 +46,7 @@ public class BasicExample2 {
 			@Override
 			public void onDisconnect() {
 				System.out.println("Connection terminated.");
+                socket.disconnect();
 			}
 
 			@Override

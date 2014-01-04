@@ -280,7 +280,6 @@ class IOConnection implements IOCallback {
 	public synchronized void unregister(SocketIO socket) {
 		sendPlain("0::" + socket.getNamespace());
 		sockets.remove(socket.getNamespace());
-		socket.getCallback().onDisconnect();
 
 		if (sockets.size() == 0) {
 			cleanup();
@@ -886,8 +885,10 @@ class IOConnection implements IOCallback {
 	@Override
 	public void onDisconnect() {
 		SocketIO socket = sockets.get("");
-		if (socket != null)
+		if (socket != null) {
 			socket.getCallback().onDisconnect();
+            unregister(socket);
+        }
 	}
 
 	@Override

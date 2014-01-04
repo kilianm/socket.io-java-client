@@ -59,6 +59,7 @@ public class AcknowledgeExample implements IOCallback {
 
 	@Override
 	public void onDisconnect() {
+        socket.disconnect();
 	}
 
 	@Override

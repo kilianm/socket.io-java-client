@@ -67,6 +67,7 @@ public class BasicExample implements IOCallback {
 	@Override
 	public void onDisconnect() {
 		System.out.println("Connection terminated.");
+        socket.disconnect();
 	}
 
 	@Override
