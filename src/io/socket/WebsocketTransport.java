@@ -32,8 +32,9 @@ class WebsocketTransport extends WebSocketClient implements IOTransport {
 	public WebsocketTransport(URI uri, IOConnection connection) {
 		super(uri);
 		this.connection = connection;
-//        SSLContext context = IOConnection.getSslContext();
+
 		SSLContext context = null;
+
 		try {
 			context = SSLContext.getInstance("TLS", "HarmonyJSSE");
 		} catch (NoSuchAlgorithmException e) {
@@ -41,12 +42,22 @@ class WebsocketTransport extends WebSocketClient implements IOTransport {
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 		}
+
+		if (context == null) {
+			context = IOConnection.getSslContext();
+		}
+
+		if (context == null) {
+			return;
+		}
+
 		try {
 			context.init(null, null, null);
 		} catch (KeyManagementException e) {
 			e.printStackTrace();
 		}
-		if ("wss".equals(uri.getScheme()) && context != null) {
+
+		if ("wss".equals(uri.getScheme())) {
 			this.setWebSocketFactory(new DefaultSSLWebSocketClientFactory(context));
 		}
 	}
