@@ -1,9 +1,6 @@
 /*
- * socket.io-java-client IOMessage.java
- *
- * Copyright (c) 2012, Enno Boland
+ * socket.io-java-client IOMessage.java Copyright (c) 2012, Enno Boland
  * socket.io-java-client is a implementation of the socket.io protocol in Java.
- * 
  * See LICENSE file for more information
  */
 package io.socket;
@@ -60,18 +57,14 @@ class IOMessage {
 
 	/** Type */
 	private int type;
-	
+
 	/**
 	 * Instantiates a new IOMessage by given data.
 	 * 
-	 * @param type
-	 *            the type
-	 * @param id
-	 *            the id
-	 * @param namespace
-	 *            the namespace
-	 * @param data
-	 *            the data
+	 * @param type the type
+	 * @param id the id
+	 * @param namespace the namespace
+	 * @param data the data
 	 */
 	public IOMessage(int type, String id, String namespace, String data) {
 		this.type = type;
@@ -84,12 +77,9 @@ class IOMessage {
 	/**
 	 * Instantiates a new IOMessage by given data.
 	 * 
-	 * @param type
-	 *            the type
-	 * @param namespace
-	 *            the name space
-	 * @param data
-	 *            the data
+	 * @param type the type
+	 * @param namespace the name space
+	 * @param data the data
 	 */
 	public IOMessage(int type, String namespace, String data) {
 		this(type, null, namespace, data);
@@ -99,14 +89,13 @@ class IOMessage {
 	 * Instantiates a new IOMessage from a String representation. If the String
 	 * is not well formated, the result is undefined.
 	 * 
-	 * @param message
-	 *            the message
+	 * @param message the message
 	 */
 	public IOMessage(String message) {
 		String[] fields = message.split(":", NUM_FIELDS);
 		for (int i = 0; i < fields.length; i++) {
 			this.fields[i] = fields[i];
-			if(i == FIELD_TYPE)
+			if (i == FIELD_TYPE)
 				this.type = Integer.parseInt(fields[i]);
 		}
 	}
@@ -117,7 +106,7 @@ class IOMessage {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0; i < fields.length; i++) {
+		for (int i = 0; i < fields.length; i++) {
 			builder.append(':');
 			if (fields[i] != null)
 				builder.append(fields[i]);

@@ -1,9 +1,6 @@
 /*
- * socket.io-java-client SocketIO.java
- *
- * Copyright (c) 2012, Enno Boland
+ * socket.io-java-client SocketIO.java Copyright (c) 2012, Enno Boland
  * socket.io-java-client is a implementation of the socket.io protocol in Java.
- * 
  * See LICENSE file for more information
  */
 package io.socket;
@@ -11,10 +8,7 @@ package io.socket;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
-
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-
 import org.json.JSONObject;
 
 /**
@@ -36,7 +30,7 @@ public class SocketIO {
 
 	private URL url;
 
-   private String queryString;
+	private String queryString;
 
 	/**
 	 * Instantiates a new socket.io connection. The object connects after
@@ -51,10 +45,8 @@ public class SocketIO {
 	 * Instantiates a new socket.io connection. The object connects after
 	 * calling {@link #connect(IOCallback)}
 	 * 
-	 * @param url
-	 *            the url
-	 * @throws MalformedURLException
-	 *             the malformed url exception
+	 * @param url the url
+	 * @throws MalformedURLException the malformed url exception
 	 */
 	public SocketIO(final String url) throws MalformedURLException {
 		if (url == null)
@@ -67,15 +59,12 @@ public class SocketIO {
 	 * while connecting the first time for authorizing. The object connects
 	 * after calling {@link #connect(IOCallback)}
 	 * 
-	 * @param url
-	 *            the url
-	 * @param headers
-	 *            the {@link Properties headers} used while handshaking
-	 * @throws MalformedURLException
-	 *             the malformed url exception
+	 * @param url the url
+	 * @param headers the {@link Properties headers} used while handshaking
+	 * @throws MalformedURLException the malformed url exception
 	 */
 	public SocketIO(final String url, Properties headers)
-			throws MalformedURLException {
+		throws MalformedURLException {
 		if (url == null)
 			throw new RuntimeException("url may not be null.");
 
@@ -89,15 +78,12 @@ public class SocketIO {
 	 * Instantiates a new socket.io object and connects to the given url. Do not
 	 * call any of the connect() methods afterwards.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
-	 * @throws MalformedURLException
-	 *             the malformed url exception
+	 * @param url the url
+	 * @param callback the callback
+	 * @throws MalformedURLException the malformed url exception
 	 */
 	public SocketIO(final String url, final IOCallback callback)
-			throws MalformedURLException {
+		throws MalformedURLException {
 		connect(url, callback);
 	}
 
@@ -105,10 +91,8 @@ public class SocketIO {
 	 * Instantiates a new socket.io object and connects to the given url. Do not
 	 * call any of the connect() methods afterwards.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
+	 * @param url the url
+	 * @param callback the callback
 	 */
 	public SocketIO(final URL url, final IOCallback callback) {
 		if (setAndConnect(url, callback) == false)
@@ -119,38 +103,36 @@ public class SocketIO {
 	 * Instantiates a new socket.io connection. The object connects after
 	 * calling {@link #connect(IOCallback)}
 	 * 
-	 * @param url
-	 *            the url
+	 * @param url the url
 	 */
 	public SocketIO(final URL url) {
 		setAndConnect(url, null);
 	}
-	
+
 	/**
 	 * Set the socket factory used for SSL connections.
+	 * 
 	 * @param socketFactory
 	 */
 	public static void setDefaultSSLSocketFactory(SSLContext sslContext) {
 		IOConnection.setSslContext(sslContext);
 	}
-	
+
 	/**
 	 * connects to supplied host using callback. Do only use this method if you
 	 * instantiate {@link SocketIO} using {@link #SocketIO()}.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
+	 * @param url the url
+	 * @param callback the callback
 	 */
 	public void connect(final String url, final IOCallback callback)
-			throws MalformedURLException {
+		throws MalformedURLException {
 		if (setAndConnect(new URL(url), callback) == false) {
 			if (url == null || callback == null)
 				throw new RuntimeException("url and callback may not be null.");
 			else
 				throw new RuntimeException(
-						"connect(String, IOCallback) can only be invoked after SocketIO()");
+					"connect(String, IOCallback) can only be invoked after SocketIO()");
 		}
 	}
 
@@ -158,10 +140,8 @@ public class SocketIO {
 	 * connects to supplied host using callback. Do only use this method if you
 	 * instantiate {@link SocketIO} using {@link #SocketIO()}.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
+	 * @param url the url
+	 * @param callback the callback
 	 */
 	public void connect(URL url, IOCallback callback) {
 		if (setAndConnect(url, callback) == false) {
@@ -169,7 +149,7 @@ public class SocketIO {
 				throw new RuntimeException("url and callback may not be null.");
 			else
 				throw new RuntimeException(
-						"connect(URL, IOCallback) can only be invoked after SocketIO()");
+					"connect(URL, IOCallback) can only be invoked after SocketIO()");
 		}
 	}
 
@@ -178,8 +158,7 @@ public class SocketIO {
 	 * instantiate {@link SocketIO} using {@link #SocketIO(String)} or
 	 * {@link #SocketIO(URL)}.
 	 * 
-	 * @param callback
-	 *            the callback
+	 * @param callback the callback
 	 */
 	public void connect(IOCallback callback) {
 		if (setAndConnect(null, callback) == false) {
@@ -187,24 +166,22 @@ public class SocketIO {
 				throw new RuntimeException("callback may not be null.");
 			else if (this.url == null)
 				throw new RuntimeException(
-						"connect(IOCallback) can only be invoked after SocketIO(String) or SocketIO(URL)");
+					"connect(IOCallback) can only be invoked after SocketIO(String) or SocketIO(URL)");
 		}
 	}
 
 	/**
 	 * Sets url and callback and initiates connecting if both are present
 	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
+	 * @param url the url
+	 * @param callback the callback
 	 * @return true if connecting has been initiated, false if not
 	 */
 	private boolean setAndConnect(URL url, IOCallback callback) {
-		if(this.connection != null)
+		if (this.connection != null)
 			throw new RuntimeException("You can connect your SocketIO instance only once. Use a fresh instance instead.");
 		if ((this.url != null && url != null)
-				|| (this.callback != null && callback != null))
+			|| (this.callback != null && callback != null))
 			return false;
 		if (url != null) {
 			this.url = url;
@@ -214,7 +191,7 @@ public class SocketIO {
 		}
 		if (this.callback != null && this.url != null) {
 			final String origin = this.url.getProtocol() + "://"
-					+ this.url.getAuthority();
+				+ this.url.getAuthority();
 			this.namespace = this.url.getPath();
 			if (this.namespace.equals("/")) {
 				this.namespace = "";
@@ -230,10 +207,9 @@ public class SocketIO {
 	 * established, the call will be buffered and sent as soon as it is
 	 * possible.
 	 * 
-	 * @param event
-	 *            the event name
-	 * @param args
-	 *            arguments. can be any argument {@link org.json.JSONArray#put(Object)} can take. 
+	 * @param event the event name
+	 * @param args arguments. can be any argument
+	 *        {@link org.json.JSONArray#put(Object)} can take.
 	 */
 	public void emit(final String event, final Object... args) {
 		this.connection.emit(this, event, null, args);
@@ -244,15 +220,13 @@ public class SocketIO {
 	 * established, the call will be buffered and sent as soon as it is
 	 * possible.
 	 * 
-	 * @param event
-	 *            the event name
-	 * @param ack
-	 *            an acknowledge implementation
-	 * @param args
-	 *            arguments. can be any argument {@link org.json.JSONArray#put(Object)} can take. 
+	 * @param event the event name
+	 * @param ack an acknowledge implementation
+	 * @param args arguments. can be any argument
+	 *        {@link org.json.JSONArray#put(Object)} can take.
 	 */
 	public void emit(final String event, IOAcknowledge ack,
-			final Object... args) {
+		final Object... args) {
 		this.connection.emit(this, event, ack, args);
 	}
 
@@ -277,8 +251,7 @@ public class SocketIO {
 	/**
 	 * Send JSON data to the Socket.io server.
 	 * 
-	 * @param json
-	 *            the JSON object
+	 * @param json the JSON object
 	 */
 	public void send(final JSONObject json) {
 		this.connection.send(this, null, json);
@@ -287,10 +260,8 @@ public class SocketIO {
 	/**
 	 * Send JSON data to the Socket.io server.
 	 * 
-	 * @param ack
-	 *            an acknowledge implementation
-	 * @param json
-	 *            the JSON object
+	 * @param ack an acknowledge implementation
+	 * @param json the JSON object
 	 */
 	public void send(IOAcknowledge ack, final JSONObject json) {
 		this.connection.send(this, ack, json);
@@ -299,8 +270,7 @@ public class SocketIO {
 	/**
 	 * Send String data to the Socket.io server.
 	 * 
-	 * @param message
-	 *            the message String
+	 * @param message the message String
 	 */
 	public void send(final String message) {
 		this.connection.send(this, null, message);
@@ -309,10 +279,8 @@ public class SocketIO {
 	/**
 	 * Send JSON data to the Socket.io server.
 	 * 
-	 * @param ack
-	 *            an acknowledge implementation
-	 * @param message
-	 *            the message String
+	 * @param ack an acknowledge implementation
+	 * @param message the message String
 	 */
 	public void send(IOAcknowledge ack, final String message) {
 		this.connection.send(this, ack, message);
@@ -344,7 +312,7 @@ public class SocketIO {
 	public boolean isConnected() {
 		return this.connection != null && this.connection.isConnected();
 	}
-	
+
 	/**
 	 * Returns the name of the used transport
 	 * 
@@ -372,8 +340,7 @@ public class SocketIO {
 	 * {@link #SocketIO(String, Properties)} or
 	 * {@link #addHeader(String, String)} instead.
 	 * 
-	 * @param headers
-	 *            the headers used while handshaking
+	 * @param headers the headers used while handshaking
 	 */
 	void setHeaders(Properties headers) {
 		this.headers = headers;
@@ -381,14 +348,15 @@ public class SocketIO {
 
 	/**
 	 * Adds an header to the {@link #headers}
+	 * 
 	 * @return SocketIO.this for daisy chaining.
 	 */
 	public SocketIO addHeader(String key, String value) {
 		if (this.connection != null)
 			throw new RuntimeException(
-					"You may only set headers before connecting.\n"
-							+ " Try to use new SocketIO().addHeader(key, value).connect(host, callback) "
-							+ "instead of SocketIO(host, callback).addHeader(key, value)");
+				"You may only set headers before connecting.\n"
+					+ " Try to use new SocketIO().addHeader(key, value).connect(host, callback) "
+					+ "instead of SocketIO(host, callback).addHeader(key, value)");
 		this.headers.setProperty(key, value);
 		return this;
 	}
@@ -403,12 +371,12 @@ public class SocketIO {
 			return this.headers.getProperty(key);
 		return null;
 	}
-    
-   public String getQueryString() {
-     return this.queryString;
-   }
-   
-   public void setQueryString(String query) {
-     this.queryString = query;
-   }
+
+	public String getQueryString() {
+		return this.queryString;
+	}
+
+	public void setQueryString(String query) {
+		this.queryString = query;
+	}
 }

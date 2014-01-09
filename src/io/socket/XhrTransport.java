@@ -1,9 +1,6 @@
 /*
- * socket.io-java-client XhrTransport.java
- *
- * Copyright (c) 2012, Enno Boland
+ * socket.io-java-client XhrTransport.java Copyright (c) 2012, Enno Boland
  * socket.io-java-client is a implementation of the socket.io protocol in Java.
- * 
  * See LICENSE file for more information
  */
 package io.socket;
@@ -19,7 +16,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
@@ -77,11 +73,11 @@ class XhrTransport implements IOTransport {
 				try {
 					String line;
 					URL url = new URL(XhrTransport.this.url.toString() + "?t="
-							+ System.currentTimeMillis());
+						+ System.currentTimeMillis());
 					urlConnection = (HttpURLConnection) url.openConnection();
 					SSLContext context = IOConnection.getSslContext();
-					if(urlConnection instanceof HttpsURLConnection && context != null) {
-						((HttpsURLConnection)urlConnection).setSSLSocketFactory(context.getSocketFactory());
+					if (urlConnection instanceof HttpsURLConnection && context != null) {
+						((HttpsURLConnection) urlConnection).setSSLSocketFactory(context.getSocketFactory());
 					}
 					if (!queue.isEmpty()) {
 						urlConnection.setDoOutput(true);
@@ -94,7 +90,7 @@ class XhrTransport implements IOTransport {
 							while (iter.hasNext()) {
 								String junk = iter.next();
 								line = IOConnection.FRAME_DELIMITER + junk.length()
-										+ IOConnection.FRAME_DELIMITER + junk;
+									+ IOConnection.FRAME_DELIMITER + junk;
 								output.write(line.getBytes(CHARSET));
 								iter.remove();
 							}
@@ -102,14 +98,14 @@ class XhrTransport implements IOTransport {
 						output.close();
 						InputStream input = urlConnection.getInputStream();
 						byte[] buffer = new byte[1024];
-						while(input.read(buffer) > 0) {
+						while (input.read(buffer) > 0) {
 						}
 						input.close();
 					} else {
 						setBlocked(true);
 						InputStream plainInput = urlConnection.getInputStream();
 						BufferedReader input = new BufferedReader(
-								new InputStreamReader(plainInput, CHARSET));
+							new InputStreamReader(plainInput, CHARSET));
 						while ((line = input.readLine()) != null) {
 							if (connection != null)
 								connection.transportData(line);
@@ -135,21 +131,19 @@ class XhrTransport implements IOTransport {
 	/**
 	 * Creates a new Transport for the given url an {@link IOConnection}.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param connection
-	 *            the connection
+	 * @param url the url
+	 * @param connection the connection
 	 * @return the iO transport
 	 */
 	public static IOTransport create(URL url, IOConnection connection) {
 		try {
 			URL xhrUrl = new URL(url.toString() + IOConnection.SOCKET_IO_1
-					+ TRANSPORT_NAME + "/" + connection.getSessionId());
+				+ TRANSPORT_NAME + "/" + connection.getSessionId());
 			return new XhrTransport(xhrUrl, connection);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(
-					"Malformed Internal url. This should never happen. Please report a bug.",
-					e);
+				"Malformed Internal url. This should never happen. Please report a bug.",
+				e);
 		}
 
 	}
@@ -157,10 +151,8 @@ class XhrTransport implements IOTransport {
 	/**
 	 * Instantiates a new xhr transport.
 	 * 
-	 * @param url
-	 *            the url
-	 * @param connection
-	 *            the connection
+	 * @param url the url
+	 * @param connection the connection
 	 */
 	public XhrTransport(URL url, IOConnection connection) {
 		this.connection = connection;
@@ -197,7 +189,9 @@ class XhrTransport implements IOTransport {
 	 */
 	@Override
 	public void send(String text) throws IOException {
-		sendBulk(new String[] { text });
+		sendBulk(new String[] {
+			text
+		});
 	}
 
 	/*
@@ -246,8 +240,7 @@ class XhrTransport implements IOTransport {
 	/**
 	 * Sets the connect.
 	 * 
-	 * @param connect
-	 *            the new connect
+	 * @param connect the new connect
 	 */
 	private synchronized void setConnect(boolean connect) {
 		this.connect = connect;
@@ -265,8 +258,7 @@ class XhrTransport implements IOTransport {
 	/**
 	 * Sets the blocked.
 	 * 
-	 * @param blocked
-	 *            the new blocked
+	 * @param blocked the new blocked
 	 */
 	private synchronized void setBlocked(boolean blocked) {
 		this.blocked = blocked;

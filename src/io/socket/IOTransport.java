@@ -1,9 +1,6 @@
 /*
- * socket.io-java-client IOTransport.java
- *
- * Copyright (c) 2012, Enno Boland
+ * socket.io-java-client IOTransport.java Copyright (c) 2012, Enno Boland
  * socket.io-java-client is a implementation of the socket.io protocol in Java.
- * 
  * See LICENSE file for more information
  */
 package io.socket;
@@ -28,10 +25,8 @@ interface IOTransport {
 	/**
 	 * Instructs the IOTransport to send a Message
 	 * 
-	 * @param text
-	 *            the text to be sent
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
+	 * @param text the text to be sent
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	void send(String text) throws Exception;
 
@@ -47,10 +42,8 @@ interface IOTransport {
 	 * Instructs the IOTransport to send multiple messages. This is only called
 	 * when canSendBulk returns true.
 	 * 
-	 * @param texts
-	 *            the texts
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
+	 * @param texts the texts
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	void sendBulk(String[] texts) throws IOException;
 
@@ -60,6 +53,6 @@ interface IOTransport {
 	 * {@link IOConnection}
 	 */
 	void invalidate();
-	
+
 	String getName();
 }
