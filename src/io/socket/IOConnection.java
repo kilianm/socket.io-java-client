@@ -5,6 +5,7 @@
  */
 package io.socket;
 
+import android.annotation.SuppressLint;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -122,6 +123,7 @@ class IOConnection implements IOCallback {
 	private int nextId = 1;
 
 	/** Acknowledges. */
+	@SuppressLint("UseSparseArrays")
 	HashMap<Integer, IOAcknowledge> acknowledge = new HashMap<Integer, IOAcknowledge>();
 
 	/** true if there's already a keepalive in {@link #outputBuffer}. */
@@ -287,6 +289,7 @@ class IOConnection implements IOCallback {
 		URL url;
 		String response;
 		URLConnection connection;
+		Scanner in = null;
 		try {
 			setState(STATE_HANDSHAKE);
 			// url = new URL(IOConnection.this.url.toString() + SOCKET_IO_1);
@@ -311,7 +314,7 @@ class IOConnection implements IOCallback {
 			}
 
 			InputStream stream = connection.getInputStream();
-			Scanner in = new Scanner(stream);
+			in = new Scanner(stream);
 			response = in.nextLine();
 			String[] data = response.split(":");
 			sessionId = data[0];
@@ -320,6 +323,10 @@ class IOConnection implements IOCallback {
 			protocols = Arrays.asList(data[3].split(","));
 		} catch (Exception e) {
 			error(new SocketIOException("Error while handshaking", e));
+		} finally {
+			if (in != null) {
+				in.close();
+			}
 		}
 	}
 
