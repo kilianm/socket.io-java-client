@@ -5,7 +5,6 @@
  */
 package io.socket;
 
-import android.annotation.SuppressLint;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -28,6 +27,7 @@ import javax.net.ssl.SSLContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.annotation.SuppressLint;
 
 /**
  * The Class IOConnection.
