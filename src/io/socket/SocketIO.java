@@ -7,9 +7,15 @@ package io.socket;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Properties;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import org.json.JSONObject;
+import android.annotation.SuppressLint;
 
 /**
  * The Class SocketIO.
@@ -143,7 +149,40 @@ public class SocketIO {
 	 * @param url the url
 	 * @param callback the callback
 	 */
+	@SuppressLint("TrulyRandom")
 	public void connect(URL url, IOCallback callback) {
+		if (url.getProtocol().equals("https")) {
+			// Create a trust manager that does not validate certificate chains
+			TrustManager[] trustAllCerts = new TrustManager[] {
+				new X509TrustManager() {
+
+					@Override
+					public X509Certificate[] getAcceptedIssuers() {
+						return new X509Certificate[] {};
+					}
+
+					@Override
+					public void checkClientTrusted(X509Certificate[] chain,
+						String authType) throws CertificateException {
+					}
+
+					@Override
+					public void checkServerTrusted(X509Certificate[] chain,
+						String authType) throws CertificateException {
+					}
+				}
+			};
+
+			// Install the all-trusting trust manager
+			try {
+				SSLContext sc = SSLContext.getInstance("TLS");
+				sc.init(null, trustAllCerts, new SecureRandom());
+				setDefaultSSLSocketFactory(sc);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 		if (setAndConnect(url, callback) == false) {
 			if (url == null || callback == null)
 				throw new RuntimeException("url and callback may not be null.");
