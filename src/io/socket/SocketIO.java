@@ -15,7 +15,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.json.JSONObject;
-import android.annotation.SuppressLint;
 
 /**
  * The Class SocketIO.
@@ -149,7 +148,6 @@ public class SocketIO {
 	 * @param url the url
 	 * @param callback the callback
 	 */
-	@SuppressLint("TrulyRandom")
 	public void connect(URL url, IOCallback callback) {
 		if (url.getProtocol().equals("https")) {
 			// Create a trust manager that does not validate certificate chains
