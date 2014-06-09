@@ -39,8 +39,8 @@ class WebsocketTransport extends WebSocketClient implements IOTransport {
 			context = SSLContext.getInstance("TLS");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-		} catch (NoSuchProviderException e) {
-			e.printStackTrace();
+//		} catch (NoSuchProviderException e) {
+//			e.printStackTrace();
 		}
 
 		if (context == null) {
