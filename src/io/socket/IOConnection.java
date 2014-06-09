@@ -27,7 +27,6 @@ import javax.net.ssl.SSLContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.annotation.SuppressLint;
 
 /**
  * The Class IOConnection.
@@ -123,7 +122,6 @@ class IOConnection implements IOCallback {
 	private int nextId = 1;
 
 	/** Acknowledges. */
-	@SuppressLint("UseSparseArrays")
 	HashMap<Integer, IOAcknowledge> acknowledge = new HashMap<Integer, IOAcknowledge>();
 
 	/** true if there's already a keepalive in {@link #outputBuffer}. */
